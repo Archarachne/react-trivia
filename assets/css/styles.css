@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    background: #263238;
+    background: #2C0A43;
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
 }
@@ -97,7 +97,7 @@ p {
 .card > .front {
     -webkit-transform: rotateY(0deg) !important;
     transform: rotateY(0deg) !important;
-    background-color: #61DAFB;
+    background-color: #59267B;
     color: #FFFFFF;
     font-size: 54px;
     z-index: 2;
@@ -106,7 +106,7 @@ p {
 .card > .back {
     -webkit-transform: rotateY(180deg) !important;
     transform: rotateY(180deg) !important;
-    background-color: #009CDF;
+    background-color: #59267B;
     color: #FFFFFF;
     font-size: 36px;
     font-weight: 300;
