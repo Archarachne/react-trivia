@@ -1,8 +1,12 @@
-# React Trivia
+# React Trivia [Work in progress]
 
 [React](https://facebook.github.io/react/) version of Trivia application. The app is written with React and ES6 (ES2015), and is built using [Babel](https://babeljs.io/) and [Webpack](https://webpack.github.io/).
 
 Check out a hosted version [here](https://ccoenraets.github.io/react-trivia/).
+
+Original by: [ccoenraets/react-trivia](https://github.com/ccoenraets/react-trivia)
+
+My idea is to have the app be able to run a full Jeopardy game with two elimination stages and a final stage.
 
 ## Make it Your Own
 
