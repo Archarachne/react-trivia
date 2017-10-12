@@ -41,6 +41,10 @@ If you want modify the app and create you own build:
 ## Credits
 Initially inspired by [Ember Jeopardy](https://github.com/machty/ember-jeopardy)
 
+Forked from [ccoenraets/react-trivia](https://github.com/ccoenraets/react-trivia)
+
+Owl: https://thenounproject.com/term/owl/20120/ - Owl by Nuno Lezon from the Noun Project
+
 ## License
 
 - App: MIT
