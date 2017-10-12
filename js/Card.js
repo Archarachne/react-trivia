@@ -10,18 +10,18 @@ class Card extends React.Component {
 
     clickHandler(event) {
         if (this.state.view === 'points') {
-            audio.play("flip");
-            setTimeout(() => {
-                if (this.state.view === "question") {
-                    audio.play("countdown");
-                }
-            }, 1800);
+            // audio.play("flip");
+            // setTimeout(() => {
+            //     if (this.state.view === "question") {
+            //         audio.play("countdown");
+            //     }
+            // }, 1800);
             this.setState({view: 'question', flipping: true});
         } else if (this.state.view === 'question') {
-            audio.stop("countdown");
+            // audio.stop("countdown");
             this.setState({view: 'answer'});
         } else {
-            audio.play("flipBack");
+            // audio.play("flipBack");
             this.setState({view: 'points', completed: true, flipping: true});
         }
     }
