@@ -8,17 +8,22 @@ var data = [
         "answer": "B. The View"
       },
       {
-        "points": 200,
+        "points": 150,
         "question": "_____ lets you create JavaScript objects using HTML syntax",
         "answer": "JSX"
       },
       {
-        "points": 300,
+        "points": 200,
         "question": "What tool can you use to transpile JSX?",
         "answer": "Babel"
       },
       {
-        "points": 400,
+        "points": 250,
+        "question": "React uses a _____________ to limit direct manipulation of the DOM and improve performance",
+        "answer": "Virtual DOM"
+      },
+      {
+        "points": 300,
         "question": "React uses a _____________ to limit direct manipulation of the DOM and improve performance",
         "answer": "Virtual DOM"
       }
@@ -71,6 +76,56 @@ var data = [
         "points": 400,
         "question": "<p>What's being logged and name 4 new features of ES6 used in this code snippet?</p><code>let greeting = (name, msg='Hello') => `${msg}, ${name}`;<br/>console.log(greeting('Christophe');</code>",
         "answer": "<p>Hello, Christophe</p><ul><li>let variables</li><li>Arrow functions</li><li>Default parameters</li><li>Template strings</li></ul>"
+      }
+    ]
+  },
+  {
+    "category": "Feeling Lucky",
+    "questions": [
+      {
+        "points": 100,
+        "question": "Using the proposed ECMAScript module syntax, how do you load the Mortgage.js module from the current directory and make all its members available in an object named mortgage?",
+        "answer": "<code>import * as mortgage from './Mortgage';</code>"
+      },
+      {
+        "points": 200,
+        "question": "What are the colors of the olympic rings?",
+        "answer": "<img src='assets/img/olympic_rings.png'/>"
+      },
+      {
+        "points": 300,
+        "question": "What's the date of the first React commit on GitHub?",
+        "answer": "May 26th, 2013"
+      },
+      {
+        "points": 400,
+        "question": "What's the hex color of the React logo?",
+        "answer": "#61DAFB"
+      }
+    ]
+  },
+  {
+    "category": "Feeling Lucky",
+    "questions": [
+      {
+        "points": 100,
+        "question": "Using the proposed ECMAScript module syntax, how do you load the Mortgage.js module from the current directory and make all its members available in an object named mortgage?",
+        "answer": "<code>import * as mortgage from './Mortgage';</code>"
+      },
+      {
+        "points": 200,
+        "question": "What are the colors of the olympic rings?",
+        "answer": "<img src='assets/img/olympic_rings.png'/>"
+      },
+      {
+        "points": 300,
+        "question": "What's the date of the first React commit on GitHub?",
+        "answer": "May 26th, 2013"
+      },
+      {
+        "points": 400,
+        "question": "What's the hex color of the React logo?",
+        "answer": "#61DAFB"
       }
     ]
   },

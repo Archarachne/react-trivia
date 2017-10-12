@@ -111,7 +111,11 @@
 	        _this.state = {
 	            windowWidth: window.innerWidth,
 	            windowHeight: window.innerHeight,
-	            data: []
+	            gameStage: 1,
+	            data: [],
+	            first_stage: [],
+	            second_stage: [],
+	            final_stage: []
 	        };
 	        return _this;
 	    }
@@ -129,12 +133,18 @@
 	        value: function componentDidMount() {
 	            window.addEventListener('resize', this.handleResize.bind(this));
 	            var rows = 0;
-	            data.forEach(function (category) {
+	            // TODO make this smarter
+	            first_stage.forEach(function (category) {
 	                if (category.questions.length > rows) {
 	                    rows = category.questions.length;
 	                }
 	            });
-	            this.setState({ data: data, rows: rows, cols: data.length });
+	            // TODO remove data references
+	            this.setState({
+	                data: data,
+	                first_stage: first_stage, second_stage: second_stage, final_stage: final_stage,
+	                rows: rows, cols: data.length
+	            });
 	        }
 	
 	        /*
@@ -168,13 +178,25 @@
 	                cardHeight = (this.state.windowHeight - headerHeight) / this.state.rows,
 	                cards = [];
 	
-	            this.state.data.forEach(function (category, categoryIndex) {
+	            var questions = null;
+	            switch (this.state.gameStage) {
+	                case 2:
+	                    questions = this.state.second_stage;
+	                    break;
+	                case 3:
+	                    questions = this.state.final_stage;
+	                    break;
+	                default:
+	                    questions = this.state.first_stage;
+	                    break;
+	            }
+	            questions.forEach(function (category, categoryIndex) {
 	                var left = categoryIndex * cardWidth;
 	                category.questions.forEach(function (question, questionIndex) {
 	                    cards.push(_react2.default.createElement(_Card2.default, { left: left, top: questionIndex * cardHeight + headerHeight, height: cardHeight, width: cardWidth, question: question, key: categoryIndex + '-' + questionIndex }));
 	                });
 	            });
-	            return _react2.default.createElement('div', null, _react2.default.createElement(_Headers2.default, { data: this.state.data, headerWidth: cardWidth }), cards);
+	            return _react2.default.createElement('div', null, _react2.default.createElement(_Headers2.default, { data: questions, headerWidth: cardWidth }), cards);
 	        }
 	    }]);
 	
@@ -22096,21 +22118,19 @@
 	    _createClass(Card, [{
 	        key: 'clickHandler',
 	        value: function clickHandler(event) {
-	            var _this2 = this;
-	
 	            if (this.state.view === 'points') {
-	                audio.play("flip");
-	                setTimeout(function () {
-	                    if (_this2.state.view === "question") {
-	                        audio.play("countdown");
-	                    }
-	                }, 1800);
+	                // audio.play("flip");
+	                // setTimeout(() => {
+	                //     if (this.state.view === "question") {
+	                //         audio.play("countdown");
+	                //     }
+	                // }, 1800);
 	                this.setState({ view: 'question', flipping: true });
 	            } else if (this.state.view === 'question') {
-	                audio.stop("countdown");
+	                // audio.stop("countdown");
 	                this.setState({ view: 'answer' });
 	            } else {
-	                audio.play("flipBack");
+	                // audio.play("flipBack");
 	                this.setState({ view: 'points', completed: true, flipping: true });
 	            }
 	        }

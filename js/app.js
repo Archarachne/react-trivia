@@ -11,7 +11,11 @@ class App extends React.Component {
         this.state = {
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
-            data: []
+            gameStage: 1,
+            data: [],
+            first_stage: [],
+            second_stage: [],
+            final_stage: [],
         };
     }
 
@@ -26,12 +30,18 @@ class App extends React.Component {
     componentDidMount() {
         window.addEventListener('resize', this.handleResize.bind(this));
         let rows = 0;
-        data.forEach(category => {
+        // TODO make this smarter
+        first_stage.forEach(category => {
             if (category.questions.length > rows) {
                 rows = category.questions.length;
             }
         });
-        this.setState({data: data, rows: rows, cols: data.length});
+        // TODO remove data references
+        this.setState({
+            data: data, 
+            first_stage: first_stage, second_stage: second_stage, final_stage: final_stage,
+            rows: rows, cols: data.length
+        });
     }
 
     /*
@@ -62,7 +72,19 @@ class App extends React.Component {
             cardHeight = (this.state.windowHeight - headerHeight) / this.state.rows,
             cards = [];
 
-        this.state.data.forEach((category, categoryIndex) => {
+        let questions = null;
+        switch(this.state.gameStage){
+            case 2:
+                questions = this.state.second_stage;
+                break;
+            case 3:
+                questions = this.state.final_stage;
+                break;
+            default:
+                questions = this.state.first_stage;
+                break;
+        }
+        questions.forEach((category, categoryIndex) => {
             let left = categoryIndex * cardWidth;
             category.questions.forEach((question, questionIndex) => {
                 cards.push(<Card left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question} key={categoryIndex + '-' + questionIndex}/>);
@@ -70,7 +92,7 @@ class App extends React.Component {
         });
         return (
             <div>
-                <Headers data={this.state.data} headerWidth={cardWidth}/>
+                <Headers data={questions} headerWidth={cardWidth}/>
                 {cards}
             </div>
         );
