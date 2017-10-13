@@ -4,8 +4,8 @@ import * as audio from './audio';
 class Card extends React.Component {
 
     constructor(props) {
-        super(props);
-        this.state = {view: 'points', completed: false};
+        super(props);        
+        this.state = {view: 'points', completed: props.completed};
     }
 
     clickHandler(event) {
@@ -23,6 +23,7 @@ class Card extends React.Component {
         } else {
             // audio.play("flipBack");
             this.setState({view: 'points', completed: true, flipping: true});
+            this.props.update(this.props.qKey, true);
         }
     }
 
@@ -45,7 +46,6 @@ class Card extends React.Component {
             },
             front = this.state.completed ? <img src='assets/img/owl.png'/> : <span className='points'>{this.props.question.points}</span>,
             className = 'flipper';
-
         if (this.state.view !== 'points') {
             className = className + ' flipped';
         }

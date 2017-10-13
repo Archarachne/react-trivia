@@ -13,6 +13,7 @@ class App extends React.Component {
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight - 100,
             gameStage: 1,
+            gameState: {},
             data: [],
             first_stage: [],
             second_stage: [],
@@ -22,7 +23,7 @@ class App extends React.Component {
         this.stageDown = this.stageDown.bind(this);
         this.setItem = this.setItem.bind(this);
         this.getItem = this.getItem.bind(this);
-        
+        this.updateCard = this.updateCard.bind(this);
     }
 
     setItem(key, value) {
@@ -31,6 +32,13 @@ class App extends React.Component {
 
     getItem(key) {
         return JSON.parse(localStorage.getItem(key));
+    }
+
+    updateCard(key, value) {
+        let gameState = this.getItem("gameState", gameState)
+        gameState[this.state.gameStage][key] = value;
+        this.setItem("gameState", gameState)
+        this.setState({gameState: this.getItem("gameState")});
     }
 
     stageUp() {
@@ -69,6 +77,16 @@ class App extends React.Component {
             this.setItem("gameStage", gameStage);
         }
 
+        let gameState = this.getItem("gameState");
+        if(!gameState) {
+            gameState = {
+                1: {},
+                2: {},
+                3: {},
+            }
+            this.setItem("gameState", gameState);
+        }
+
         let rows = 0;
         // TODO make this smarter
         first_stage.forEach(category => {
@@ -81,7 +99,8 @@ class App extends React.Component {
             data: data, 
             first_stage: first_stage, second_stage: second_stage, final_stage: final_stage,
             rows: rows, cols: data.length,
-            gameStage: gameStage
+            gameStage: gameStage,
+            gameState: gameState,
         });
     }
 
@@ -134,15 +153,23 @@ class App extends React.Component {
         questions.forEach((category, categoryIndex) => {
             let left = categoryIndex * cardWidth;
             category.questions.forEach((question, questionIndex) => {
-                cards.push(<Card left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question} key={categoryIndex + '-' + questionIndex}/>);
+                let gameState = this.getItem("gameState");
+                let qKey = categoryIndex + '.' + questionIndex;
+                let cardCompleted = gameState[this.state.gameStage][qKey];
+                if(cardCompleted===undefined) {
+                    cardCompleted = false;
+                    gameState[this.state.gameStage][qKey] = false;
+                    this.setItem("gameState", gameState);
+                }
+                cards.push(<Card qKey={qKey} update={ this.updateCard } completed={cardCompleted} left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question} key={categoryIndex + '-' + questionIndex}/>);
             })
         });
         return (
             <div>
                 <Headers data={questions} headerWidth={cardWidth}/>
                 {cards}
-                <StageButton left={50} top={this.state.windowHeight + 10} action={ this.stageDown } side={ "left" }/>
-                <StageButton left={300} top={this.state.windowHeight + 10} action={ this.stageUp } side={ "right" }/>
+                <StageButton left={50} top={this.state.windowHeight + 10} action={ this.stageDown } side={ "< ==" }/>
+                <StageButton left={this.state.windowWidth - 200 - 50} top={this.state.windowHeight + 10} action={ this.stageUp } side={ "== >" }/>
             </div>
         );
     }
