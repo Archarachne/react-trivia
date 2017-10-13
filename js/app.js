@@ -20,13 +20,26 @@ class App extends React.Component {
         };
         this.stageUp = this.stageUp.bind(this);
         this.stageDown = this.stageDown.bind(this);
+        this.setItem = this.setItem.bind(this);
+        this.getItem = this.getItem.bind(this);
+        
+    }
+
+    setItem(key, value) {
+        localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    getItem(key) {
+        return JSON.parse(localStorage.getItem(key));
     }
 
     stageUp() {
         if(this.state.gameStage === 3){
             this.setState({ gameStage: 3 });
         } else {
-            this.setState({ gameStage: this.state.gameStage + 1 });
+            let newStage = this.state.gameStage + 1;
+            this.setState({ gameStage: newStage });
+            this.setItem("gameStage", newStage);
         }
     }
 
@@ -34,7 +47,9 @@ class App extends React.Component {
         if (this.state.gameStage === 1) {
             this.setState({ gameStage: 1 });
         } else {
-            this.setState({ gameStage: this.state.gameStage - 1 });
+            let newStage = this.state.gameStage - 1;
+            this.setState({ gameStage: newStage });
+            this.setItem("gameStage", newStage);
         }
     }
 
@@ -47,6 +62,13 @@ class App extends React.Component {
 
     componentDidMount() {
         window.addEventListener('resize', this.handleResize.bind(this));
+
+        let gameStage = this.getItem("gameStage");
+        if(!gameStage) {
+            gameStage = 1;
+            this.setItem("gameStage", gameStage);
+        }
+
         let rows = 0;
         // TODO make this smarter
         first_stage.forEach(category => {
@@ -58,7 +80,8 @@ class App extends React.Component {
         this.setState({
             data: data, 
             first_stage: first_stage, second_stage: second_stage, final_stage: final_stage,
-            rows: rows, cols: data.length
+            rows: rows, cols: data.length,
+            gameStage: gameStage
         });
     }
 
