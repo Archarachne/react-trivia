@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Card from './Card';
+import StageButton from './StageButton';
 import Headers from './Headers';
 import request from './request';
 
@@ -10,13 +11,31 @@ class App extends React.Component {
         super(props);
         this.state = {
             windowWidth: window.innerWidth,
-            windowHeight: window.innerHeight,
+            windowHeight: window.innerHeight - 100,
             gameStage: 1,
             data: [],
             first_stage: [],
             second_stage: [],
             final_stage: [],
         };
+        this.stageUp = this.stageUp.bind(this);
+        this.stageDown = this.stageDown.bind(this);
+    }
+
+    stageUp() {
+        if(this.state.gameStage === 3){
+            this.setState({ gameStage: 3 });
+        } else {
+            this.setState({ gameStage: this.state.gameStage + 1 });
+        }
+    }
+
+    stageDown() {
+        if (this.state.gameStage === 1) {
+            this.setState({ gameStage: 1 });
+        } else {
+            this.setState({ gameStage: this.state.gameStage - 1 });
+        }
     }
 
     handleResize(event) {
@@ -25,7 +44,6 @@ class App extends React.Component {
             windowHeight: window.innerHeight
         });
     }
-
 
     componentDidMount() {
         window.addEventListener('resize', this.handleResize.bind(this));
@@ -46,7 +64,7 @@ class App extends React.Component {
 
     componentDidUpdate(prevProps, prevState){
         // if game stage has changed - rerender
-        if(this.state.gameStage != prevState.gameStage){
+        if(this.state.gameStage != prevState.gameStage) {
             this.forceUpdate();
         };
     }
@@ -100,6 +118,8 @@ class App extends React.Component {
             <div>
                 <Headers data={questions} headerWidth={cardWidth}/>
                 {cards}
+                <StageButton left={50} top={this.state.windowHeight + 10} action={ this.stageDown } side={ "left" }/>
+                <StageButton left={300} top={this.state.windowHeight + 10} action={ this.stageUp } side={ "right" }/>
             </div>
         );
     }
