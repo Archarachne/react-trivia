@@ -8,13 +8,13 @@ class StageButton extends React.Component {
 
     render() {
         let style = {
-            width: '100px',
+            width: this.props.width +'px',
             height: '50px',
             transform: 'translate3d(' + this.props.left + 'px,' + this.props.top + 'px,0)',
             WebkitTransform: 'translate3d(' + this.props.left + 'px,' + this.props.top + 'px,0)'
         };
         return (
-            <button type="button" style={style} onClick={this.props.action}>{ this.props.side }</button>
+            <button className={"stageChanger"} style={style} onClick={this.props.action}>{ this.props.side }</button>
         );
     }
 }

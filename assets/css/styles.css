@@ -205,6 +205,32 @@ code {
 
 }
 
+.pointCounter {
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+}
+
+input.pointCounter {
+    display: inline-block;
+    background-color: #2C0A43;
+    color: #FFFFFF;
+}
+label.pointCounter {
+    display: inline-block;
+    width: 6em;
+    margin-right: .5em;
+    padding-top: 1.5em;
+    color: #FFFFFF;
+}
+
+button.stageChanger {
+    display: inline-block;
+    background-color: #2C0A43;
+    color: #FFFFFF;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+}
+
 @media screen and (min-width : 0) and (max-width : 640px) {
 
     .headers {

@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Card from './Card';
 import StageButton from './StageButton';
+import PointCounter from './PointCounter';
 import Headers from './Headers';
 import request from './request';
 
@@ -150,6 +151,8 @@ class App extends React.Component {
                 questions = this.state.first_stage;
                 break;
         }
+        console.log(this.state.gameStage);
+        console.log(this.state.gameState[this.state.gameStage]);
         questions.forEach((category, categoryIndex) => {
             let left = categoryIndex * cardWidth;
             category.questions.forEach((question, questionIndex) => {
@@ -164,12 +167,18 @@ class App extends React.Component {
                 cards.push(<Card qKey={qKey} update={ this.updateCard } completed={cardCompleted} left={left} top={questionIndex * cardHeight + headerHeight} height={cardHeight} width={cardWidth} question={question} key={categoryIndex + '-' + questionIndex}/>);
             })
         });
+        let counterWidth = cardWidth * (this.state.cols-2) / 3 - 10;
         return (
             <div>
                 <Headers data={questions} headerWidth={cardWidth}/>
                 {cards}
-                <StageButton left={50} top={this.state.windowHeight + 10} action={ this.stageDown } side={ "< ==" }/>
-                <StageButton left={this.state.windowWidth - 200 - 50} top={this.state.windowHeight + 10} action={ this.stageUp } side={ "== >" }/>
+                <div>
+                <StageButton width={cardWidth-10} left={5} top={this.state.windowHeight + 10} action={ this.stageDown } side={ "< ==" }/>
+                <PointCounter width={counterWidth} left={10} top={this.state.windowHeight + 10} player={1}/>
+                <PointCounter width={counterWidth} left={15} top={this.state.windowHeight + 10} player={2} />
+                <PointCounter width={counterWidth} left={20} top={this.state.windowHeight + 10} player={3} />
+                <StageButton width={cardWidth-10} left={25} top={this.state.windowHeight + 10} action={ this.stageUp } side={ "== >" }/>
+                </div>
             </div>
         );
     }
