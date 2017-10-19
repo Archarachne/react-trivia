@@ -8,6 +8,12 @@ class Card extends React.Component {
         this.state = {view: 'points', completed: props.completed};
     }
 
+    componentWillReceiveProps(newProps) {
+        if(newProps.completed!=this.state.completed){
+            this.setState({completed: newProps.completed});
+        }
+    }
+
     clickHandler(event) {
         if (this.state.view === 'points') {
             // audio.play("flip");

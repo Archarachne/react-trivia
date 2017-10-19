@@ -107,9 +107,10 @@ class App extends React.Component {
 
     componentDidUpdate(prevProps, prevState){
         // if game stage has changed - rerender
-        if(this.state.gameStage != prevState.gameStage) {
-            this.forceUpdate();
-        };
+        // if(this.state.gameStage != prevState.gameStage) {
+        //     console.log('rerender gameStage');
+        //     this.forceUpdate();
+        // };
     }
     /*
     // Traditional XHR implementation. Getting questions from data.json using XHR. Will run into cross origin issues in some browsers
